@@ -37,17 +37,16 @@ function createEntry(imageUrl, text, isText, entries) {
         const img = document.createElement("img");
         img.src = imageUrl;
 
-        // Ensure images stay within the required height range
+        // Ensure images scale to 510px height while maintaining the original width-to-height ratio
         img.onload = function () {
             const width = img.naturalWidth;
             const height = img.naturalHeight;
 
-            // Calculate new height and width based on the image scaling (height between 400px and 800px)
-            let newHeight = Math.max(400, Math.min(800, height)); // Clamp height between 400px and 800px
-            const scaleFactor = newHeight / height;
+            // Calculate new height and width based on the image scaling (height 510px)
+            const scaleFactor = 510 / height;
             const newWidth = width * scaleFactor;
 
-            img.style.height = `${newHeight}px`;
+            img.style.height = "510px";
             img.style.width = `${newWidth}px`; // Scale the width proportionally to the height
 
             entry.appendChild(img);
@@ -63,6 +62,12 @@ function createEntry(imageUrl, text, isText, entries) {
         const textParagraph = document.createElement("p");
         textParagraph.textContent = text;
         textBox.appendChild(textParagraph);
+
+        // Style the text box
+        textBox.style.width = "510px";
+        textBox.style.wordWrap = "break-word"; // Ensure text wraps
+        textBox.style.padding = "10px"; // Add padding for spacing inside text box
+        textBox.style.boxSizing = "border-box"; // Include padding in the width calculation
 
         entry.appendChild(textBox);
     }
