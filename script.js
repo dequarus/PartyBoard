@@ -1,7 +1,10 @@
 // Replace with your Google Sheets API URL
 const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4RDww8XEXPrb7dr3EtstrJy-gVoiFp6s3lgvzJZ-bbonekFYHIo/exec";
 
-let scrollAmount = 0;
+// Function to calculate new width based on height and maintaining aspect ratio
+function calculateWidth(originalWidth, originalHeight, targetHeight = 510) {
+    return (originalWidth * targetHeight) / originalHeight;
+}
 
 // Fetch data from Google Sheets (Tally Form data)
 async function fetchData() {
@@ -29,7 +32,18 @@ function createEntry(imageUrl, text) {
     if (imageUrl) {
         const img = document.createElement("img");
         img.src = imageUrl;
-        entry.appendChild(img);
+
+        // Fetch the image to calculate its dimensions for scaling
+        img.onload = function () {
+            const width = img.naturalWidth;
+            const height = img.naturalHeight;
+
+            // Calculate new width based on 510px height while maintaining aspect ratio
+            const newWidth = calculateWidth(width, height);
+
+            img.style.width = `${newWidth}px`;
+            entry.appendChild(img);
+        };
     }
 
     // Add text if available
@@ -43,24 +57,6 @@ function createEntry(imageUrl, text) {
     // Append the entry to the board
     board.appendChild(entry);
 }
-
-// Handle scrolling (move the board left and right with mouse scroll)
-function handleScroll(event) {
-    if (event.deltaY < 0) {
-        scrollAmount += 20; // Scroll right when scrolling up
-    } else {
-        scrollAmount -= 20; // Scroll left when scrolling down
-    }
-
-    const maxScroll = document.getElementById("board").scrollWidth - window.innerWidth;
-    if (scrollAmount < 0) scrollAmount = 0;
-    if (scrollAmount > maxScroll) scrollAmount = maxScroll;
-
-    document.getElementById("board").style.transform = `translateX(-${scrollAmount}px)`;
-}
-
-// Event listener for mouse wheel scroll
-window.addEventListener('wheel', handleScroll, { passive: true });
 
 // Initialize the page with data
 fetchData();
