@@ -23,6 +23,7 @@ body {
     width: 510px;
     height: auto;
     box-sizing: border-box;
+    margin: 20px; /* Ensuring entries do not overlap by margin */
 }
 
 .entry img {
