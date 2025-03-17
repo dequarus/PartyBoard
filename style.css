@@ -20,12 +20,14 @@ body {
     height: 100%;
     position: relative;
     overflow: hidden;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .entry {
     position: absolute;
     width: calc(50% - 40px); /* Two columns, 20px margin */
-    height: calc(50% - 40px); /* Two rows, 20px margin */
+    height: 510px; /* Submissions height */
     margin: 20px;
     display: flex;
     flex-direction: column;
@@ -37,17 +39,17 @@ body {
 }
 
 .entry img {
-    width: 100%;
-    height: auto;
-    max-height: 200px;
-    object-fit: cover;
+    width: auto;
+    height: 100%; /* Make sure all images have the same height */
+    max-height: 510px; /* Set maximum height */
+    object-fit: contain; /* Preserve aspect ratio */
     border-radius: 10px;
 }
 
 .text-box {
     background-color: #f0f0f0;
     color: black;
-    padding: 10px;
+    padding: 36px;
     margin-top: 10px;
     max-width: 100%;
     word-wrap: break-word;
@@ -56,6 +58,11 @@ body {
     border-radius: 5px;
     text-align: center;
     flex-grow: 1;
+    height: 510px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none; /* Remove border */
 }
 
 .entry:nth-child(even) {
