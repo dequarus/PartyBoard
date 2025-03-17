@@ -25,11 +25,8 @@ function createEntry(imageUrl, text) {
     const entry = document.createElement("div");
     entry.classList.add("entry");
 
-    // Randomly decide whether image or text comes first
-    const isImageFirst = Math.random() > 0.5;
-
     // Add image if available
-    if (imageUrl && isImageFirst) {
+    if (imageUrl) {
         const img = document.createElement("img");
         img.src = imageUrl;
         entry.appendChild(img);
@@ -43,18 +40,7 @@ function createEntry(imageUrl, text) {
         entry.appendChild(textBox);
     }
 
-    // Add image if available after text if image comes second
-    if (imageUrl && !isImageFirst) {
-        const img = document.createElement("img");
-        img.src = imageUrl;
-        entry.appendChild(img);
-    }
-
-    // Randomize position of entries
-    const randomX = Math.floor(Math.random() * (window.innerWidth - 40)); // Random horizontal position
-    const randomY = Math.floor(Math.random() * (window.innerHeight - 40)); // Random vertical position
-    entry.style.transform = `translate(${randomX}px, ${randomY}px)`;
-
+    // Append the entry to the board
     board.appendChild(entry);
 }
 
