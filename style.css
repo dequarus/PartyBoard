@@ -1,70 +1,43 @@
-/* General layout */
 body {
-    background-color: white;
-    color: black;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Prevent horizontal scrolling */
+    box-sizing: border-box;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    height: 100%;
 }
 
-/* The container for the board */
-.board-container {
+#board {
     position: relative;
-    width: 1920px;
-    height: 1080px;
-    margin: 0 auto;
-    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Prevent overflow from affecting layout */
 }
 
-/* General styling for each entry */
 .entry {
     position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    box-sizing: border-box;
-    border-radius: 10px;
+    border: 2px solid black;
 }
 
-/* Image inside the entry */
-.entry img {
-    width: auto;
-    height: auto;
-    max-height: 800px;
-    min-height: 400px;
-    object-fit: contain;
-    border-radius: 10px;
-}
-
-/* Text box styling */
 .text-box {
     background-color: white;
-    color: black;
-    padding: 36px;
-    width: auto;
-    height: auto;
-    min-height: 510px; /* Ensure the text box is at least 510px tall */
-    max-height: 510px; /* Limit text box height to 510px */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    max-width: 510px;
+    min-height: 510px;
     overflow: hidden;
-    word-wrap: break-word;
-    white-space: normal;
 }
 
-/* Ensure that the text box expands to fit the content */
 .text-box p {
     margin: 0;
-    display: inline-block;
+    padding: 0;
     word-wrap: break-word;
+}
+
+img {
+    display: block;
+    width: auto;
     max-width: 100%;
-    line-height: 1.5;
+    height: auto;
 }
