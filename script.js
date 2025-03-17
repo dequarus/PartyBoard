@@ -2,8 +2,8 @@ const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4R
 
 let currentPositionY = 0; // Track vertical position for new entries
 
-// Controls the rate at which the page grows. Decrease this number to add more space between entries
-const verticalSpacing = 50;
+// Controls the rate at which the page grows. Adjust this to control the spacing between entries
+const verticalSpacing = 100; // Increase this to make the page grow more slowly
 
 async function fetchData() {
     try {
