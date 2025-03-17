@@ -1,22 +1,22 @@
 const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4RDww8XEXPrb7dr3EtstrJy-gVoiFp6s3lgvzJZ-bbonekFYHIo/exec";
 
 // Helper function to check if the new position collides with existing entries
-function checkCollision(newX, newY, entries) {
+function checkCollision(newX, newY, entries, entry) {
     const minDistance = 150; // Minimum distance between entries
 
     // Check if the new position collides with any existing entry
-    for (let entry of entries) {
-        const entryX = entry.x;
-        const entryY = entry.y;
-        const entryWidth = entry.element.offsetWidth;
-        const entryHeight = entry.element.offsetHeight;
+    for (let existingEntry of entries) {
+        const existingX = existingEntry.x;
+        const existingY = existingEntry.y;
+        const existingWidth = existingEntry.element.offsetWidth;
+        const existingHeight = existingEntry.element.offsetHeight;
 
         // Check horizontal and vertical distances
         if (
-            newX < entryX + entryWidth + minDistance &&
-            newX + entryWidth + minDistance > entryX &&
-            newY < entryY + entryHeight + minDistance &&
-            newY + entryHeight + minDistance > entryY
+            newX < existingX + existingWidth + minDistance &&
+            newX + entry.offsetWidth + minDistance > existingX &&
+            newY < existingY + existingHeight + minDistance &&
+            newY + entry.offsetHeight + minDistance > existingY
         ) {
             return true; // Collision detected
         }
@@ -77,7 +77,7 @@ function createEntry(imageUrl, text, isText, entries) {
         yPos = board.scrollHeight; // Place entry at the bottom (start of the new page)
 
         // Check if the new position collides with existing entries
-        collisionDetected = checkCollision(xPos, yPos, entries);
+        collisionDetected = checkCollision(xPos, yPos, entries, entry);
     }
 
     // Store the position and the element for future collision checks
