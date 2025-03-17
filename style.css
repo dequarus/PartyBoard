@@ -1,43 +1,52 @@
 body {
+    background-color: white;
+    color: black;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-    height: 100%;
+    overflow-x: hidden;
 }
 
-#board {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden; /* Prevent overflow from affecting layout */
+.board-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    overflow-y: auto;
+    width: 100vw;
+    height: 100vh;
 }
 
 .entry {
-    position: absolute;
-    border: 2px solid black;
+    margin-bottom: 20px; /* Spacing between entries */
+    width: 100%;
+    max-width: 510px; /* Limit width to 510px */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.entry img {
+    max-height: 510px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 10px;
 }
 
 .text-box {
-    background-color: white;
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    max-width: 510px;
-    min-height: 510px;
-    overflow: hidden;
+    width: 510px; /* Fixed width */
+    background: white;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    word-wrap: break-word;
 }
 
 .text-box p {
     margin: 0;
     padding: 0;
-    word-wrap: break-word;
-}
-
-img {
-    display: block;
-    width: auto;
-    max-width: 100%;
-    height: auto;
+    line-height: 1.5;
 }
