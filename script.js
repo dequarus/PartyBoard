@@ -63,11 +63,15 @@ function createEntry(imageUrl, text, isText, entries) {
         textParagraph.textContent = text;
         textBox.appendChild(textParagraph);
 
-        // Style the text box
-        textBox.style.width = "510px";
+        // Style the text box with fixed width and dynamic height
+        textBox.style.width = "510px"; // Fixed width
         textBox.style.wordWrap = "break-word"; // Ensure text wraps
         textBox.style.padding = "10px"; // Add padding for spacing inside text box
         textBox.style.boxSizing = "border-box"; // Include padding in the width calculation
+
+        // Dynamically adjust the height based on the text content
+        textBox.style.height = "auto"; // Allow the height to grow based on content
+        textBox.style.maxHeight = "510px"; // Maximum height of 510px
 
         entry.appendChild(textBox);
     }
