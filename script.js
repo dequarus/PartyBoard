@@ -1,6 +1,7 @@
 const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4RDww8XEXPrb7dr3EtstrJy-gVoiFp6s3lgvzJZ-bbonekFYHIo/exec"; // Replace with actual sheet URL
 
 let usedPositions = []; // To track used positions for entries
+let currentYPosition = 0; // Keep track of vertical positions to push new entries downwards
 
 const boardWidth = window.innerWidth;
 const boardHeight = window.innerHeight;
@@ -31,7 +32,7 @@ function getRandomPosition() {
     // Ensure the random position stays within the bounds of the screen and doesn't overlap with other entries
     do {
         x = Math.floor(Math.random() * (boardWidth - entryWidth)); // Random horizontal position
-        y = Math.floor(Math.random() * (boardHeight - entryHeight)); // Random vertical position
+        y = currentYPosition + Math.floor(Math.random() * 500); // Random vertical position, based on the current position
     } while (isOverlapping(x, y)); // Check if the new position overlaps with existing entries
 
     usedPositions.push({ x, y }); // Store the position to avoid future overlap
@@ -86,6 +87,9 @@ function createEntry(imageUrl, text) {
 
     // Add the entry to the board
     board.appendChild(entry);
+
+    // Increase the y position to push future entries downward
+    currentYPosition = y + 500; // Adjust this value if you want more spacing between entries
 }
 
 // Fetch data on page load
