@@ -4,7 +4,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Prevent horizontal overflow */
+    overflow-x: hidden;
 }
 
 .board-container {
@@ -12,20 +12,18 @@ body {
     flex-direction: column;
     align-items: flex-start;
     padding: 20px;
-    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-y: auto;
     width: 100vw;
-    min-height: 100vh; /* Ensure enough space for scroll */
+    min-height: 100vh;
 }
 
 .entry {
-    margin-bottom: 20px; /* Space between entries */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    position: absolute; /* Position entries randomly */
     width: 510px; /* Fixed width for each entry */
     max-width: 510px;
-    margin-left: 20px; /* Add left margin for proper spacing */
+    height: auto;
+    margin-bottom: 20px; /* Space between entries */
+    box-sizing: border-box;
 }
 
 .entry img {
@@ -36,13 +34,12 @@ body {
 }
 
 .text-box {
-    width: 510px; /* Fixed width of text box */
+    width: 510px;
     background: white;
     padding: 10px;
     text-align: center;
     border: 1px solid black;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
     word-wrap: break-word;
 }
 
