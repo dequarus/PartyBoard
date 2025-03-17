@@ -1,6 +1,5 @@
 const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4RDww8XEXPrb7dr3EtstrJy-gVoiFp6s3lgvzJZ-bbonekFYHIo/exec"; // Replace with actual sheet URL
 
-let currentPositionY = 0; // Tracks vertical position for new entries
 let usedPositions = []; // To track used positions for entries
 
 const boardWidth = window.innerWidth;
@@ -77,20 +76,4 @@ function createEntry(imageUrl, text) {
 
     // Create text element if text is provided
     if (text) {
-        const textBox = document.createElement("div");
-        textBox.classList.add("text-box");
-        const p = document.createElement("p");
-        p.textContent = text;
-        textBox.appendChild(p);
-        entry.appendChild(textBox);
-    }
-
-    // Add the entry to the board
-    board.appendChild(entry);
-}
-
-// Fetch data on page load
-fetchData();
-
-// Set up regular refresh every 5 seconds
-setInterval(fetchData, 5000);
+    
