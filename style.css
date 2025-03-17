@@ -43,7 +43,7 @@ body {
 /* Image styling to preserve aspect ratio and avoid cropping */
 .entry img {
     width: auto;
-    height: 100%; /* Scale the image to the entry's height */
+    height: 510px; /* Scale the image to the entry's height */
     max-height: 510px; /* Ensure images don't exceed the fixed height */
     object-fit: contain; /* Ensure no cropping, maintain aspect ratio */
     border-radius: 10px;
@@ -67,6 +67,7 @@ body {
     align-items: center;
     justify-content: center;
     border: none; /* Remove border around text box */
+    overflow: hidden;
 }
 
 /* Random background color for even/odd entries */
