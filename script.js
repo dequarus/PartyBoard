@@ -7,6 +7,14 @@ async function fetchData() {
         const response = await fetch(SHEET_API_URL);
         const data = await response.json();
 
+        // Check the data we're receiving from the API
+        console.log("Fetched Data:", data);
+
+        if (!data || data.length === 0) {
+            console.log("No data found.");
+            return;
+        }
+
         // Add new entries from the data
         data.forEach(item => {
             createEntry(item.image1 || item.image2, item.text);
@@ -18,6 +26,12 @@ async function fetchData() {
 
 function createEntry(imageUrl, text) {
     const board = document.getElementById("board");
+
+    // Ensure there is an image URL or text
+    if (!imageUrl && !text) {
+        console.log("No image or text provided, skipping entry.");
+        return;
+    }
 
     const entry = document.createElement("div");
     entry.classList.add("entry");
@@ -49,5 +63,8 @@ function createEntry(imageUrl, text) {
     board.appendChild(entry);
 }
 
+// Fetch data on page load
 fetchData();
-setInterval(fetchData, 5000); // Refresh every 5 seconds
+
+// Set up regular refresh every 5 seconds
+setInterval(fetchData, 5000);
