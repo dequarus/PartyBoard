@@ -1,9 +1,11 @@
 const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4RDww8XEXPrb7dr3EtstrJy-gVoiFp6s3lgvzJZ-bbonekFYHIo/exec";
 
-// Function to generate random positions within the available space
+// Function to generate random positions within the available space in top and bottom halves
 function getRandomPosition() {
     const maxWidth = window.innerWidth - 530; // Subtracting 20px margin + entry width
-    const maxHeight = window.innerHeight - 530; // Subtracting 20px margin + entry height
+    const maxHeight = window.innerHeight / 2 - 530; // Top half of the screen height (max 510px per entry)
+
+    // Random x and y coordinates
     const x = Math.floor(Math.random() * maxWidth);
     const y = Math.floor(Math.random() * maxHeight);
     return { x, y };
@@ -32,10 +34,10 @@ function createEntry(imageUrl, text, index) {
     const entry = document.createElement("div");
     entry.classList.add("entry");
 
-    // Assign random position
+    // Assign random position for the entry (top half or bottom half)
     const { x, y } = getRandomPosition();
     entry.style.left = `${x}px`;
-    entry.style.top = `${y}px`;
+    entry.style.top = `${y + (index % 2) * window.innerHeight / 2}px`; // Alternate between top and bottom
 
     // Add image if available
     if (imageUrl) {
@@ -58,7 +60,12 @@ function createEntry(imageUrl, text, index) {
     if (text) {
         const textBox = document.createElement("div");
         textBox.classList.add("text-box");
-        textBox.textContent = text;
+        
+        // Add text content inside the box
+        const textParagraph = document.createElement("p");
+        textParagraph.textContent = text;
+        textBox.appendChild(textParagraph);
+
         entry.appendChild(textBox);
     }
 
