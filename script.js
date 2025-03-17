@@ -74,7 +74,7 @@ function createEntry(imageUrl, text, isText, entries) {
     // Try until we find a non-colliding position
     while (collisionDetected) {
         xPos = Math.floor(Math.random() * (board.offsetWidth - entry.offsetWidth - 20)); // Random X position
-        yPos = Math.floor(Math.random() * (board.offsetHeight - entry.offsetHeight - 20)); // Random Y position
+        yPos = board.scrollHeight; // Place entry at the bottom (start of the new page)
 
         // Check if the new position collides with existing entries
         collisionDetected = checkCollision(xPos, yPos, entries);
@@ -89,6 +89,9 @@ function createEntry(imageUrl, text, isText, entries) {
 
     // Add the entry to the board
     board.appendChild(entry);
+
+    // Add space for next submission by expanding the page
+    board.style.height = `${board.scrollHeight + entry.offsetHeight + 150}px`;
 }
 
 // Function to fetch data from the Google Sheet
