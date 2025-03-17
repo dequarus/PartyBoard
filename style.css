@@ -1,44 +1,39 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: white;
-    color: black;
+    background-color: #fff;
     font-family: Arial, sans-serif;
-    overflow-x: hidden;  /* Hide horizontal overflow */
+    overflow-x: hidden;  /* Prevent horizontal overflow */
 }
 
-.board-container {
+.gallery {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 100vw;
+    flex-wrap: wrap;
     min-height: 100vh;
-    padding: 20px;
 }
 
 .entry {
     position: absolute;
     width: 510px;
-    height: auto;
     margin: 20px;
     box-sizing: border-box;
 }
 
 .entry img {
-    max-height: 510px;
     width: auto;
+    height: 510px;  /* Scale to 510px in height */
     object-fit: contain;
     margin-bottom: 10px;
 }
 
 .text-box {
     width: 510px;
-    background: white;
     padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
     text-align: center;
-    border: 1px solid black;
     word-wrap: break-word;
-    line-height: 1.5;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
+    box-sizing: border-box;
 }
