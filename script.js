@@ -1,43 +1,12 @@
 const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4RDww8XEXPrb7dr3EtstrJy-gVoiFp6s3lgvzJZ-bbonekFYHIo/exec";
 
-// Function to generate random positions within the available space in top and bottom halves
-function getRandomPosition() {
-    const maxWidth = window.innerWidth - 530; // Subtracting 20px margin + entry width
-    const maxHeight = window.innerHeight / 2 - 530; // Top half of the screen height (max 510px per entry)
-
-    // Random x and y coordinates
-    const x = Math.floor(Math.random() * maxWidth);
-    const y = Math.floor(Math.random() * maxHeight);
-    return { x, y };
-}
-
-// Fetch data from Google Sheets
-async function fetchData() {
-    try {
-        const response = await fetch(SHEET_API_URL);
-        const data = await response.json();
-
-        // For each item in the data, create an entry
-        data.forEach((item, index) => {
-            createEntry(item.image1 || item.image2, item.text, index);
-        });
-    } catch (error) {
-        console.error("Error fetching data:", error);
-    }
-}
-
-// Create an entry for image and/or text
-function createEntry(imageUrl, text, index) {
+// Function to create the image and/or text entry
+function createEntry(imageUrl, text) {
     const board = document.getElementById("board");
 
     // Create the entry container
     const entry = document.createElement("div");
     entry.classList.add("entry");
-
-    // Assign random position for the entry (top half or bottom half)
-    const { x, y } = getRandomPosition();
-    entry.style.left = `${x}px`;
-    entry.style.top = `${y + (index % 2) * window.innerHeight / 2}px`; // Alternate between top and bottom
 
     // Add image if available
     if (imageUrl) {
@@ -60,7 +29,7 @@ function createEntry(imageUrl, text, index) {
     if (text) {
         const textBox = document.createElement("div");
         textBox.classList.add("text-box");
-        
+
         // Add text content inside the box
         const textParagraph = document.createElement("p");
         textParagraph.textContent = text;
@@ -73,5 +42,20 @@ function createEntry(imageUrl, text, index) {
     board.appendChild(entry);
 }
 
-// Initialize and fetch the data
+// Function to fetch data from the Google Sheet
+async function fetchData() {
+    try {
+        const response = await fetch(SHEET_API_URL);
+        const data = await response.json();
+
+        // For each item in the data, create an entry
+        data.forEach((item) => {
+            createEntry(item.image1 || item.image2, item.text);
+        });
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+}
+
+// Initialize and fetch the data when the page loads
 fetchData();
