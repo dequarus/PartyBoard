@@ -90,8 +90,8 @@ function createEntry(imageUrl, text, isText, entries) {
     // Add the entry to the board
     board.appendChild(entry);
 
-    // Add space for next submission by expanding the page
-    board.style.height = `${board.scrollHeight + entry.offsetHeight + 150}px`;
+    // Add space for next submission by expanding the page by 1080px (vertical scroll)
+    document.body.style.height = `${document.body.scrollHeight + 1080}px`;
 }
 
 // Function to fetch data from the Google Sheet
