@@ -2,6 +2,9 @@ const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4R
 
 let currentPositionY = 0; // Track vertical position for new entries
 
+// Controls the rate at which the page grows. Decrease this number to add more space between entries
+const verticalSpacing = 50;
+
 async function fetchData() {
     try {
         const response = await fetch(SHEET_API_URL);
@@ -52,8 +55,14 @@ function createEntry(imageUrl, text) {
         entry.appendChild(textBox);
     }
 
+    // Adjust the Y position (space between entries)
+    entry.style.marginTop = `${currentPositionY}px`;
+
     // Add the entry to the board
     board.appendChild(entry);
+
+    // Increment the Y position by the spacing value
+    currentPositionY += verticalSpacing;
 }
 
 // Fetch data on page load
