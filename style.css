@@ -13,11 +13,10 @@ body {
     display: flex;
     flex-wrap: wrap; /* Allow wrapping into multiple rows */
     overflow-x: auto; /* Enable horizontal scrolling */
-    width: 100vw;
-    height: 100vh;
     padding: 20px;
     box-sizing: border-box;
     justify-content: flex-start; /* Align to the left */
+    height: calc(100vh - 40px); /* 20px margin at top and bottom */
 }
 
 /* General styling for each entry */
@@ -49,6 +48,7 @@ body {
     padding: 36px;
     width: 510px;
     height: auto;
+    min-height: 510px; /* Ensure the text box is at least 510px tall */
     max-height: 510px; /* Limit text box height to 510px */
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
