@@ -76,4 +76,20 @@ function createEntry(imageUrl, text) {
 
     // Create text element if text is provided
     if (text) {
-    
+        const textBox = document.createElement("div");
+        textBox.classList.add("text-box");
+        const p = document.createElement("p");
+        p.textContent = text;
+        textBox.appendChild(p);
+        entry.appendChild(textBox);
+    }
+
+    // Add the entry to the board
+    board.appendChild(entry);
+}
+
+// Fetch data on page load
+fetchData();
+
+// Set up regular refresh every 5 seconds
+setInterval(fetchData, 5000);
