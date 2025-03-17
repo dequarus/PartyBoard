@@ -1,3 +1,4 @@
+/* Body and general layout */
 body {
     background-color: white;
     color: black;
@@ -11,6 +12,7 @@ body {
     height: 100vh;
 }
 
+/* Board container (holds all submissions) */
 .board-container {
     display: flex;
     flex-wrap: wrap;
@@ -24,28 +26,31 @@ body {
     box-sizing: border-box;
 }
 
+/* Each submission (image or text) */
 .entry {
     position: absolute;
-    width: calc(50% - 40px); /* Two columns, 20px margin */
-    height: 510px; /* Submissions height */
+    width: calc(50% - 40px); /* Two columns with 20px margin between them */
+    height: 510px; /* Fixed height for each entry */
     margin: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     box-sizing: border-box;
     border-radius: 10px;
     transition: transform 0.5s ease-in-out;
 }
 
+/* Image styling to preserve aspect ratio and avoid cropping */
 .entry img {
     width: auto;
-    height: 100%; /* Make sure all images have the same height */
-    max-height: 510px; /* Set maximum height */
-    object-fit: contain; /* Preserve aspect ratio */
+    height: 100%; /* Scale the image to the entry's height */
+    max-height: 510px; /* Ensure images don't exceed the fixed height */
+    object-fit: contain; /* Ensure no cropping, maintain aspect ratio */
     border-radius: 10px;
 }
 
+/* Text box styling inside each entry */
 .text-box {
     background-color: #f0f0f0;
     color: black;
@@ -62,9 +67,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: none; /* Remove border */
+    border: none; /* Remove border around text box */
 }
 
+/* Random background color for even/odd entries */
 .entry:nth-child(even) {
     background-color: #FFEB99;
 }
