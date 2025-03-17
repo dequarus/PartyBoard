@@ -15,12 +15,12 @@ body {
     overflow-y: auto;
     width: 100vw;
     min-height: 100vh;
-    position: relative;  /* Make sure the entries are positioned relative to the container */
+    position: relative;
 }
 
 .entry {
-    position: absolute; /* Position entries randomly */
-    width: 510px; /* Fixed width for each entry */
+    position: absolute;
+    width: 510px;
     height: auto;
     box-sizing: border-box;
 }
@@ -40,10 +40,11 @@ body {
     border: 1px solid black;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     word-wrap: break-word;
+    max-width: 510px;
+    line-height: 1.5;
 }
 
 .text-box p {
     margin: 0;
     padding: 0;
-    line-height: 1.5;
 }
