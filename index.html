@@ -58,7 +58,66 @@
     </div>
 
     <script>
-        // JavaScript will dynamically load images & text here later
-    </script>
+    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4RDww8XEXPrb7dr3EtstrJy-gVoiFp6s3lgvzJZ-bbonekFYHIo/exec"; // Replace this
+
+    async function fetchData() {
+        try {
+            const response = await fetch(SHEET_API_URL);
+            const data = await response.json();
+
+            data.forEach(item => {
+                createEntry(item.image1 || item.image2, item.text);
+            });
+
+            startScrolling();
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+    function createEntry(imageUrl, text) {
+        const board = document.getElementById("board");
+
+        const entry = document.createElement("div");
+        entry.classList.add("entry");
+
+        if (imageUrl) {
+            const img = document.createElement("img");
+            img.src = imageUrl;
+            entry.appendChild(img);
+        }
+
+        if (text) {
+            const textBox = document.createElement("div");
+            textBox.classList.add("text-box");
+            textBox.textContent = text;
+            entry.appendChild(textBox);
+        }
+
+        board.appendChild(entry);
+    }
+
+    function startScrolling() {
+        const board = document.getElementById("board");
+        let scrollAmount = 0;
+
+        function scroll() {
+            scrollAmount += 1;
+            board.style.transform = `translateX(-${scrollAmount}px)`;
+
+            if (scrollAmount > board.scrollWidth - window.innerWidth) {
+                scrollAmount = 0;
+            }
+
+            requestAnimationFrame(scroll);
+        }
+
+        scroll();
+    }
+
+    fetchData();
+    setInterval(fetchData, 5000); // Refresh every 5 seconds
+</script>
+
 </body>
 </html>
