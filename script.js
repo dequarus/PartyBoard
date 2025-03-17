@@ -44,9 +44,9 @@ function createEntry(imageUrl, text) {
     }
 
     // Randomize the position of each entry
-    const randomX = Math.floor(Math.random() * 90); // Random horizontal position
-    const randomY = Math.floor(Math.random() * 90); // Random vertical position
-    entry.style.transform = `translate(${randomX}%, ${randomY}%)`;
+    const randomX = Math.floor(Math.random() * (window.innerWidth - 40)); // Random horizontal position within the screen width
+    const randomY = Math.floor(Math.random() * (window.innerHeight - 40)); // Random vertical position within the screen height
+    entry.style.transform = `translate(${randomX}px, ${randomY}px)`;
 
     board.appendChild(entry);
 }
