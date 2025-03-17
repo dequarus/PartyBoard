@@ -1,15 +1,15 @@
 const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4RDww8XEXPrb7dr3EtstrJy-gVoiFp6s3lgvzJZ-bbonekFYHIo/exec";
 
 // Function to create the image and/or text entry
-function createEntry(imageUrl, text) {
+function createEntry(imageUrl, text, isText) {
     const board = document.getElementById("board");
 
     // Create the entry container
     const entry = document.createElement("div");
     entry.classList.add("entry");
 
-    // Add image if available
-    if (imageUrl) {
+    // Add image if available and if it's not a text submission
+    if (!isText && imageUrl) {
         const img = document.createElement("img");
         img.src = imageUrl;
 
@@ -31,7 +31,7 @@ function createEntry(imageUrl, text) {
     }
 
     // Add text box if available
-    if (text) {
+    if (isText && text) {
         const textBox = document.createElement("div");
         textBox.classList.add("text-box");
 
@@ -63,7 +63,14 @@ async function fetchData() {
 
         // For each item in the data, create an entry
         data.forEach((item) => {
-            createEntry(item.image1 || item.image2, item.text);
+            // If an image is provided, create image entry
+            if (item.image1 || item.image2) {
+                createEntry(item.image1 || item.image2, null, false);
+            }
+            // If text is provided, create text entry
+            if (item.text) {
+                createEntry(null, item.text, true);
+            }
         });
     } catch (error) {
         console.error("Error fetching data:", error);
