@@ -1,29 +1,26 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #fff;
+    background-color: #f0f0f0;
     font-family: Arial, sans-serif;
-    overflow-x: hidden;  /* Prevent horizontal overflow */
+    overflow-x: hidden;  /* Prevent horizontal scrolling */
 }
 
-.gallery {
+#gallery {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    min-height: 100vh;
+    padding: 20px;
 }
 
 .entry {
     position: absolute;
-    width: 510px;
+    width: 510px; /* Width of image/text box */
     margin: 20px;
     box-sizing: border-box;
 }
 
 .entry img {
     width: auto;
-    height: 510px;  /* Scale to 510px in height */
+    height: 510px;  /* Image height fixed at 510px */
     object-fit: contain;
     margin-bottom: 10px;
 }
@@ -36,4 +33,5 @@ body {
     text-align: center;
     word-wrap: break-word;
     box-sizing: border-box;
+    word-break: break-word;
 }
