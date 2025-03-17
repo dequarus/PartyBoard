@@ -1,4 +1,5 @@
-const SHEET_API_URL = "YOUR_GOOGLE_SHEET_API_URL"; // Use your actual Google Sheets API URL
+// Example URL, replace with your actual Google Sheets API URL
+const SHEET_API_URL = "YOUR_GOOGLE_SHEET_API_URL"; 
 
 let currentYPosition = 0;
 let usedPositions = [];  // Store positions to prevent overlap
