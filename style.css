@@ -1,0 +1,64 @@
+body {
+    background-color: white;
+    color: black;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.board-container {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    position: relative;
+    height: 100vh;
+    width: 200%; /* Make the board wide enough to scroll */
+    transition: transform 0.5s ease-in-out;
+}
+
+.entry {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    margin: 20px;
+    box-sizing: border-box;
+}
+
+.entry img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.text-box {
+    background: #f0f0f0;
+    color: black;
+    padding: 10px;
+    margin-top: 10px;
+    max-width: 280px;
+    word-wrap: break-word;
+    white-space: normal;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    max-height: 6em; /* Prevents text overflow */
+    overflow: hidden;
+    text-align: center;
+}
+
+.text-box.expanded {
+    max-height: none;
+}
+
+.entry:nth-child(even) {
+    background-color: #FFEB99;
+}
+
+.entry:nth-child(odd) {
+    background-color: #A2DFF7;
+}
