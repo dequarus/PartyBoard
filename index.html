@@ -16,9 +16,8 @@
 
         .board-container {
             display: flex;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             overflow: hidden;
-            white-space: nowrap;
             width: 100vw;
             height: 100vh;
             position: relative;
@@ -33,7 +32,8 @@
             margin: 20px;
             max-width: 300px;
             text-align: center;
-            position: absolute; /* Positioning each entry randomly */
+            position: relative;
+            box-sizing: border-box;
         }
 
         .entry img {
@@ -52,7 +52,8 @@
             max-width: 280px;
             border-radius: 5px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-            word-wrap: break-word; /* Text will wrap */
+            word-wrap: break-word; /* Ensure text wraps */
+            white-space: normal; /* Allow wrapping */
             max-height: 6em; /* Limit text box height */
             overflow: hidden; /* Ensure no overflow */
         }
@@ -60,6 +61,13 @@
         .text-box.expanded {
             max-height: none; /* Allow expansion beyond 4 lines */
         }
+
+        .board-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
     </style>
 </head>
 <body>
@@ -90,11 +98,9 @@
             const entry = document.createElement("div");
             entry.classList.add("entry");
 
-            // Randomize position for each entry
-            const randomTop = Math.floor(Math.random() * (window.innerHeight - 300)); // Random top position
-            const randomLeft = Math.floor(Math.random() * (window.innerWidth - 300)); // Random left position
-            entry.style.top = `${randomTop}px`;
-            entry.style.left = `${randomLeft}px`;
+            // Add random background color to each entry
+            const randomColor = getRandomColor();
+            entry.style.backgroundColor = randomColor;
 
             if (imageUrl) {
                 const img = document.createElement("img");
@@ -116,6 +122,11 @@
             }
 
             board.appendChild(entry);
+        }
+
+        function getRandomColor() {
+            const colors = ['#FFB6C1', '#D3FFCE', '#FFEB99', '#A2DFF7', '#F9A6D7'];
+            return colors[Math.floor(Math.random() * colors.length)];
         }
 
         function handleScroll(event) {
