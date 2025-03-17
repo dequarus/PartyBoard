@@ -1,13 +1,13 @@
 const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4RDww8XEXPrb7dr3EtstrJy-gVoiFp6s3lgvzJZ-bbonekFYHIo/exec"; // Replace with actual sheet URL
 
-let currentPositionY = 0; // This will track the vertical position of the newest entry
+let currentPositionY = 0; // Track vertical position for new entries
 
 async function fetchData() {
     try {
         const response = await fetch(SHEET_API_URL);
         const data = await response.json();
 
-        // Check the data we're receiving from the API
+        // Check the fetched data
         console.log("Fetched Data:", data);
 
         if (!data || data.length === 0) {
@@ -27,7 +27,6 @@ async function fetchData() {
 function createEntry(imageUrl, text) {
     const board = document.getElementById("board");
 
-    // Ensure there is an image URL or text
     if (!imageUrl && !text) {
         console.log("No image or text provided, skipping entry.");
         return;
@@ -53,13 +52,7 @@ function createEntry(imageUrl, text) {
         entry.appendChild(textBox);
     }
 
-    // Set the position of the new entry
-    entry.style.top = `${currentPositionY}px`;
-
-    // Update the Y position for the next entry
-    currentPositionY += 540; // Add space for the next entry (image or text) and margin
-
-    // Append the entry to the board
+    // Add the entry to the board
     board.appendChild(entry);
 }
 
