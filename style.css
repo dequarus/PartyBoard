@@ -4,26 +4,23 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow-x: hidden;  /* Hide horizontal overflow */
 }
 
 .board-container {
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 20px;
-    overflow-y: auto;
     width: 100vw;
     min-height: 100vh;
-    position: relative;
 }
 
 .entry {
     position: absolute;
     width: 510px;
     height: auto;
+    margin: 20px;
     box-sizing: border-box;
-    margin: 20px; /* Ensuring entries do not overlap by margin */
 }
 
 .entry img {
@@ -39,13 +36,7 @@ body {
     padding: 10px;
     text-align: center;
     border: 1px solid black;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     word-wrap: break-word;
-    max-width: 510px;
     line-height: 1.5;
-}
-
-.text-box p {
-    margin: 0;
-    padding: 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
