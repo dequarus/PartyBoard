@@ -18,6 +18,9 @@ body {
     height: 100%;
     padding: 20px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /* General styling for each entry */
@@ -28,8 +31,10 @@ body {
     justify-content: flex-start;
     align-items: center;
     width: 510px;
-    height: 510px;
+    height: auto;
+    min-height: 510px; /* Ensure minimum height for text boxes */
     border-radius: 10px;
+    margin: 10px;
 }
 
 /* Image inside the entry */
@@ -43,13 +48,12 @@ body {
 
 /* Text box styling */
 .text-box {
-    background-color: #f0f0f0;
+    background-color: white;
     color: black;
     padding: 36px;
     width: 100%;
-    height: 100%;
-    word-wrap: break-word;
-    white-space: normal;
+    height: auto;
+    max-height: 510px; /* Limit text box height to 510px */
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     text-align: center;
@@ -58,4 +62,11 @@ body {
     justify-content: center;
     border: none;
     overflow: hidden;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+/* Ensure that the text box expands to fit the content */
+.text-box p {
+    margin: 0;
 }
