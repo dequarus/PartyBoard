@@ -22,7 +22,7 @@
             width: 100vw;
             height: 100vh;
             position: relative;
-            transition: transform 1s ease-in-out; /* Smooth transition for scroll */
+            transition: transform 0.5s ease-in-out; /* Smooth transition for scroll */
         }
 
         .entry {
@@ -33,7 +33,7 @@
             margin: 20px;
             max-width: 300px;
             text-align: center;
-            transition: transform 1s ease-in-out; /* Ensure smooth item transitions */
+            position: absolute; /* Positioning each entry randomly */
         }
 
         .entry img {
@@ -52,19 +52,13 @@
             max-width: 280px;
             border-radius: 5px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-            word-wrap: break-word;
-            overflow: hidden;
+            word-wrap: break-word; /* Text will wrap */
             max-height: 6em; /* Limit text box height */
+            overflow: hidden; /* Ensure no overflow */
         }
 
         .text-box.expanded {
             max-height: none; /* Allow expansion beyond 4 lines */
-        }
-
-        /* Animation */
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
         }
     </style>
 </head>
@@ -74,71 +68,78 @@
     </div>
 
     <script>
-    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4RDww8XEXPrb7dr3EtstrJy-gVoiFp6s3lgvzJZ-bbonekFYHIo/exec"; // Replace with your actual API URL
+        const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4RDww8XEXPrb7dr3EtstrJy-gVoiFp6s3lgvzJZ-bbonekFYHIo/exec"; // Replace with your actual API URL
+        let scrollAmount = 0; // Initialize scroll position
 
-    async function fetchData() {
-        try {
-            const response = await fetch(SHEET_API_URL);
-            const data = await response.json();
+        async function fetchData() {
+            try {
+                const response = await fetch(SHEET_API_URL);
+                const data = await response.json();
 
-            data.forEach(item => {
-                createEntry(item.image1 || item.image2, item.text);
-            });
-
-            startScrolling();
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    }
-
-    function createEntry(imageUrl, text) {
-        const board = document.getElementById("board");
-
-        const entry = document.createElement("div");
-        entry.classList.add("entry");
-
-        if (imageUrl) {
-            const img = document.createElement("img");
-            img.src = imageUrl;
-            entry.appendChild(img);
+                data.forEach(item => {
+                    createEntry(item.image1 || item.image2, item.text);
+                });
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
         }
 
-        if (text) {
-            const textBox = document.createElement("div");
-            textBox.classList.add("text-box");
-            textBox.textContent = text;
+        function createEntry(imageUrl, text) {
+            const board = document.getElementById("board");
 
-            // Expand text if it exceeds 4 lines
-            if (textBox.clientHeight > 100) {
-                textBox.classList.add("expanded");
+            const entry = document.createElement("div");
+            entry.classList.add("entry");
+
+            // Randomize position for each entry
+            const randomTop = Math.floor(Math.random() * (window.innerHeight - 300)); // Random top position
+            const randomLeft = Math.floor(Math.random() * (window.innerWidth - 300)); // Random left position
+            entry.style.top = `${randomTop}px`;
+            entry.style.left = `${randomLeft}px`;
+
+            if (imageUrl) {
+                const img = document.createElement("img");
+                img.src = imageUrl;
+                entry.appendChild(img);
             }
 
-            entry.appendChild(textBox);
-        }
+            if (text) {
+                const textBox = document.createElement("div");
+                textBox.classList.add("text-box");
+                textBox.textContent = text;
 
-        board.appendChild(entry);
-    }
+                // Expand text if it exceeds 4 lines
+                if (textBox.clientHeight > 100) {
+                    textBox.classList.add("expanded");
+                }
 
-    function startScrolling() {
-        const board = document.getElementById("board");
-        let scrollAmount = 0;
-
-        function scroll() {
-            scrollAmount += 1;
-            board.style.transform = `translateX(-${scrollAmount}px)`; // Scroll left
-
-            if (scrollAmount > board.scrollWidth - window.innerWidth) {
-                scrollAmount = 0; // Reset once it reaches the end
+                entry.appendChild(textBox);
             }
 
-            requestAnimationFrame(scroll); // Smooth scroll
+            board.appendChild(entry);
         }
 
-        scroll();
-    }
+        function handleScroll(event) {
+            // Adjust scroll direction based on mouse wheel scroll
+            if (event.deltaY < 0) {
+                scrollAmount += 20; // Scroll right when scrolling up
+            } else {
+                scrollAmount -= 20; // Scroll left when scrolling down
+            }
 
-    fetchData();
-    setInterval(fetchData, 5000); // Refresh data every 5 seconds
+            // Prevent scrolling past the start or end
+            if (scrollAmount < 0) scrollAmount = 0;
+            if (scrollAmount > document.getElementById("board").scrollWidth) {
+                scrollAmount = document.getElementById("board").scrollWidth;
+            }
+
+            // Apply scrolling to board
+            document.getElementById("board").style.transform = `translateX(-${scrollAmount}px)`;
+        }
+
+        // Event listener for scroll
+        window.addEventListener('wheel', handleScroll, { passive: true });
+
+        fetchData();
     </script>
 </body>
 </html>
