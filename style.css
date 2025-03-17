@@ -15,14 +15,13 @@ body {
     overflow-y: auto;
     width: 100vw;
     min-height: 100vh;
+    position: relative;  /* Make sure the entries are positioned relative to the container */
 }
 
 .entry {
     position: absolute; /* Position entries randomly */
     width: 510px; /* Fixed width for each entry */
-    max-width: 510px;
     height: auto;
-    margin-bottom: 20px; /* Space between entries */
     box-sizing: border-box;
 }
 
