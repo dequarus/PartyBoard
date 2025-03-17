@@ -1,0 +1,61 @@
+body {
+    background-color: white;
+    color: black;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.board-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    transition: transform 1s ease-in-out; /* Smooth transition for scroll */
+}
+
+.entry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    max-width: 300px;
+    text-align: center;
+    transition: transform 1s ease-in-out; /* Ensure smooth item transitions */
+}
+
+.entry img {
+    width: 100%;
+    height: auto;
+    max-height: 200px; /* Limit height of images */
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.text-box {
+    background: #f0f0f0;
+    color: black;
+    padding: 10px;
+    margin-top: 10px;
+    max-width: 280px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 6em; /* Limit text box height */
+}
+
+.text-box.expanded {
+    max-height: none; /* Allow expansion beyond 4 lines */
+}
+
+/* Animation */
+@keyframes scrollLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
