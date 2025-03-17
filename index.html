@@ -22,6 +22,7 @@
             width: 100vw;
             height: 100vh;
             position: relative;
+            transition: transform 1s ease-in-out; /* Smooth transition for scroll */
         }
 
         .entry {
@@ -32,23 +33,38 @@
             margin: 20px;
             max-width: 300px;
             text-align: center;
+            transition: transform 1s ease-in-out; /* Ensure smooth item transitions */
         }
 
         .entry img {
             width: 100%;
             height: auto;
-            max-height: 300px;
+            max-height: 200px; /* Limit height of images */
             object-fit: cover;
             border-radius: 10px;
         }
 
         .text-box {
-            background: white;
+            background: #f0f0f0;
+            color: black;
             padding: 10px;
             margin-top: 10px;
             max-width: 280px;
-            border: 1px solid black;
+            border-radius: 5px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word;
+            overflow: hidden;
+            max-height: 6em; /* Limit text box height */
+        }
+
+        .text-box.expanded {
+            max-height: none; /* Allow expansion beyond 4 lines */
+        }
+
+        /* Animation */
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
         }
     </style>
 </head>
@@ -58,7 +74,7 @@
     </div>
 
     <script>
-    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4RDww8XEXPrb7dr3EtstrJy-gVoiFp6s3lgvzJZ-bbonekFYHIo/exec"; // Replace this
+    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4RDww8XEXPrb7dr3EtstrJy-gVoiFp6s3lgvzJZ-bbonekFYHIo/exec"; // Replace with your actual API URL
 
     async function fetchData() {
         try {
@@ -91,6 +107,12 @@
             const textBox = document.createElement("div");
             textBox.classList.add("text-box");
             textBox.textContent = text;
+
+            // Expand text if it exceeds 4 lines
+            if (textBox.clientHeight > 100) {
+                textBox.classList.add("expanded");
+            }
+
             entry.appendChild(textBox);
         }
 
@@ -103,21 +125,20 @@
 
         function scroll() {
             scrollAmount += 1;
-            board.style.transform = `translateX(-${scrollAmount}px)`;
+            board.style.transform = `translateX(-${scrollAmount}px)`; // Scroll left
 
             if (scrollAmount > board.scrollWidth - window.innerWidth) {
-                scrollAmount = 0;
+                scrollAmount = 0; // Reset once it reaches the end
             }
 
-            requestAnimationFrame(scroll);
+            requestAnimationFrame(scroll); // Smooth scroll
         }
 
         scroll();
     }
 
     fetchData();
-    setInterval(fetchData, 5000); // Refresh every 5 seconds
-</script>
-
+    setInterval(fetchData, 5000); // Refresh data every 5 seconds
+    </script>
 </body>
 </html>
