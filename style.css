@@ -5,7 +5,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow-x: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +15,7 @@ body {
 /* Board container (holds all submissions) */
 .board-container {
     display: flex;
-    flex-direction: column; /* Stack the two rows vertically */
+    flex-direction: row; /* Horizontal layout for entries */
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
@@ -30,7 +30,8 @@ body {
 .entry {
     width: calc(50% - 40px); /* Two columns with 20px margin between them */
     height: 510px; /* Fixed height for each entry */
-    margin: 20px;
+    margin-right: 20px; /* Margin between each submission */
+    margin-left: 0; /* No margin for the first one */
     display: flex;
     flex-direction: column;
     justify-content: flex-start; /* Align items at the top */
