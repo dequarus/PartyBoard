@@ -42,13 +42,13 @@ function createEntry(imageUrl, text, isText, entries) {
             const width = img.naturalWidth;
             const height = img.naturalHeight;
 
-            // Calculate new height and width based on the image scaling
+            // Calculate new height and width based on the image scaling (height between 400px and 800px)
             let newHeight = Math.max(400, Math.min(800, height)); // Clamp height between 400px and 800px
             const scaleFactor = newHeight / height;
             const newWidth = width * scaleFactor;
 
             img.style.height = `${newHeight}px`;
-            img.style.width = `${newWidth}px`;
+            img.style.width = `${newWidth}px`; // Scale the width proportionally to the height
 
             entry.appendChild(img);
         };
