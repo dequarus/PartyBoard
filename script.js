@@ -22,7 +22,9 @@ function createEntry(imageUrl, text) {
     const entry = document.createElement("div");
     entry.classList.add("entry");
 
-    if (imageUrl) {
+    const isImageFirst = Math.random() > 0.5; // Randomize whether the image comes first or the text
+
+    if (isImageFirst && imageUrl) {
         const img = document.createElement("img");
         img.src = imageUrl;
         entry.appendChild(img);
@@ -32,14 +34,19 @@ function createEntry(imageUrl, text) {
         const textBox = document.createElement("div");
         textBox.classList.add("text-box");
         textBox.textContent = text;
-
-        // Allow text to expand beyond 4 lines if needed
-        if (textBox.clientHeight > 100) {
-            textBox.classList.add("expanded");
-        }
-
         entry.appendChild(textBox);
     }
+
+    if (!isImageFirst && imageUrl) {
+        const img = document.createElement("img");
+        img.src = imageUrl;
+        entry.appendChild(img);
+    }
+
+    // Randomize the position of each entry
+    const randomX = Math.floor(Math.random() * 100); // Random horizontal position
+    const randomY = Math.floor(Math.random() * 100); // Random vertical position
+    entry.style.transform = `translate(${randomX}%, ${randomY}%)`;
 
     board.appendChild(entry);
 }
@@ -53,9 +60,10 @@ function handleScroll(event) {
     }
 
     // Prevent scrolling past the start or end
+    const maxScroll = document.getElementById("board").scrollWidth - window.innerWidth;
     if (scrollAmount < 0) scrollAmount = 0;
-    if (scrollAmount > document.getElementById("board").scrollWidth - window.innerWidth) {
-        scrollAmount = document.getElementById("board").scrollWidth - window.innerWidth;
+    if (scrollAmount > maxScroll) {
+        scrollAmount = maxScroll;
     }
 
     // Apply scrolling to board
