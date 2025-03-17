@@ -44,8 +44,8 @@ function createEntry(imageUrl, text) {
     }
 
     // Randomize the position of each entry
-    const randomX = Math.floor(Math.random() * 100); // Random horizontal position
-    const randomY = Math.floor(Math.random() * 100); // Random vertical position
+    const randomX = Math.floor(Math.random() * 90); // Random horizontal position
+    const randomY = Math.floor(Math.random() * 90); // Random vertical position
     entry.style.transform = `translate(${randomX}%, ${randomY}%)`;
 
     board.appendChild(entry);
