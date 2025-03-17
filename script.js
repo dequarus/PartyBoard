@@ -13,14 +13,19 @@ function createEntry(imageUrl, text) {
         const img = document.createElement("img");
         img.src = imageUrl;
 
-        // Fetch image dimensions to maintain aspect ratio
+        // Ensure images stay within the required height range
         img.onload = function () {
             const width = img.naturalWidth;
             const height = img.naturalHeight;
 
-            // Calculate the width based on scaling the image to 510px height
-            const newWidth = (width * 510) / height;
+            // Calculate new height and width based on the image scaling
+            let newHeight = Math.max(400, Math.min(800, height)); // Clamp height between 400px and 800px
+            const scaleFactor = newHeight / height;
+            const newWidth = width * scaleFactor;
+
+            img.style.height = `${newHeight}px`;
             img.style.width = `${newWidth}px`;
+
             entry.appendChild(img);
         };
     }
@@ -38,7 +43,15 @@ function createEntry(imageUrl, text) {
         entry.appendChild(textBox);
     }
 
-    // Append the new entry to the board
+    // Randomly position the entry within the board
+    const xPos = Math.floor(Math.random() * (board.offsetWidth - entry.offsetWidth - 20)); // Random X position
+    const yPos = Math.floor(Math.random() * (board.offsetHeight - entry.offsetHeight - 20)); // Random Y position
+
+    // Apply the calculated position to the entry
+    entry.style.left = `${xPos}px`;
+    entry.style.top = `${yPos}px`;
+
+    // Add the entry to the board
     board.appendChild(entry);
 }
 
