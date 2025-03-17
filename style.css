@@ -4,27 +4,23 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow-x: hidden;  /* Hide horizontal overflow */
 }
 
 .board-container {
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 20px;
-    overflow-y: auto;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .entry {
-    margin-bottom: 20px; /* Spacing between entries */
-    width: 100%;
-    max-width: 510px; /* Limit width to 510px */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    position: absolute;
+    width: 510px;
+    height: auto;
+    margin: 20px;
+    box-sizing: border-box;
 }
 
 .entry img {
@@ -35,18 +31,12 @@ body {
 }
 
 .text-box {
-    width: 510px; /* Fixed width */
+    width: 510px;
     background: white;
     padding: 10px;
     text-align: center;
     border: 1px solid black;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
     word-wrap: break-word;
-}
-
-.text-box p {
-    margin: 0;
-    padding: 0;
     line-height: 1.5;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
