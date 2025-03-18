@@ -1,0 +1,24 @@
+name: Update Party Board Data
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # Runs every 5 minutes
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Fetch new data
+        run: curl -o data.json "https://script.google.com/macros/s/AKfycbzZe-p0Uw0hvF4PUZIlKusfXJeX9nHc1dRE_b5lmKUbyTQTD4Bsys0CmcX62iM8wtWwqQ/exec"
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add data.json
+          git commit -m "Auto-update data.json" || exit 0
+          git push
