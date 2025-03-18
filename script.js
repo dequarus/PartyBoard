@@ -1,41 +1,57 @@
-const SHEET_URL = "YOUR_GOOGLE_SHEETS_JSON_URL"; // Replace with your Sheets JSON URL
+const SHEET_URL = "YOUR_GOOGLE_SHEETS_JSON_URL"; // Replace with actual Google Sheets JSON URL
 const gallery = document.getElementById("gallery");
-const columns = [[], [], [], []]; // Four columns
 
-// Fetch submissions and update the board
+let currentBottom = 0; // Track the bottom of the gallery for new entries
+
 async function fetchSubmissions() {
     try {
         const response = await fetch(SHEET_URL);
         const data = await response.json();
         const entries = data.values.slice(1); // Skip header row
 
-        // Clear columns before reloading data
-        columns.forEach(col => col.length = 0);
-        gallery.innerHTML = ""; 
+        gallery.innerHTML = ""; // Clear old content
+
+        let usedPositions = []; // Prevent overlap
 
         entries.forEach((entry, index) => {
             const imgUrl = entry[3] || entry[4]; // Image URLs from columns D or E
             const text = entry[5]; // Text submission from column F
+            const yOffset = index * 600; // Ensure new entries go lower
 
-            // Alternate placing between the four columns
-            const columnIndex = index % 4;
-            const column = columns[columnIndex];
+            let xPos, yPos;
+            let attempts = 0;
+
+            // Ensure no overlap (min 150px spacing)
+            do {
+                xPos = Math.floor(Math.random() * (1920 - 600)); // Random X (leave margin)
+                yPos = currentBottom + Math.floor(Math.random() * 300) + yOffset; // Random Y
+                attempts++;
+            } while (usedPositions.some(pos => Math.abs(pos.x - xPos) < 150 && Math.abs(pos.y - yPos) < 150) && attempts < 10);
+
+            usedPositions.push({ x: xPos, y: yPos });
+
+            let itemDiv = document.createElement("div");
+            itemDiv.classList.add("item");
+            itemDiv.style.left = `${xPos}px`;
+            itemDiv.style.top = `${yPos}px`;
 
             if (imgUrl) {
-                column.push(`<div><img src="${imgUrl}" loading="lazy"></div>`);
+                let img = document.createElement("img");
+                img.src = imgUrl;
+                itemDiv.appendChild(img);
             } 
             if (text) {
-                column.push(`<div class="text-box">${text}</div>`);
+                let textDiv = document.createElement("div");
+                textDiv.classList.add("text-box");
+                textDiv.textContent = text;
+                itemDiv.appendChild(textDiv);
             }
+
+            gallery.appendChild(itemDiv);
         });
 
-        // Render all columns dynamically
-        columns.forEach((colEntries, i) => {
-            const columnDiv = document.createElement("div");
-            columnDiv.classList.add("column");
-            columnDiv.innerHTML = colEntries.join(""); 
-            gallery.appendChild(columnDiv);
-        });
+        // Increase bottom for more space when scrolling
+        currentBottom += 1080;
 
     } catch (error) {
         console.error("Error fetching data:", error);
