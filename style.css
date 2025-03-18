@@ -44,14 +44,14 @@ body {
 }
 
 /* Responsive Adjustments */
-@media screen and (max-width: 1200px) {
+.media screen and (max-width: 1200px) {
     .gallery { column-count: 3; }
 }
 
-@media screen and (max-width: 900px) {
+.media screen and (max-width: 900px) {
     .gallery { column-count: 2; }
 }
 
-@media screen and (max-width: 600px) {
+.media screen and (max-width: 600px) {
     .gallery { column-count: 1; }
 }
