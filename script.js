@@ -1,25 +1,35 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const gallery = document.getElementById("gallery");
+const sheetURL = "https://script.google.com/macros/s/AKfycbxoImdMxOs-BqVLYOMpSQj9Tf21HI13AeSECvL6c4QY2NzTUG5Bvt-oTO-Sj1ghuHLaRw/exec";  // Replace with actual URL
 
-    // Example: Fetch data (replace with actual form data)
-    const submissions = [
-        { type: "image", src: "https://via.placeholder.com/200" },
-        { type: "text", content: "This is a text submission" },
-        { type: "image", src: "https://via.placeholder.com/200" }
-    ];
+async function fetchSubmissions() {
+    try {
+        let response = await fetch(sheetURL);
+        let data = await response.json();
+        let entries = data.feed.entry;
+        
+        const collage = document.getElementById("collage");
+        collage.innerHTML = ""; // Clear previous items
 
-    submissions.forEach(submission => {
-        const item = document.createElement("div");
-        item.classList.add("item");
+        entries.forEach(entry => {
+            let imageUrl = entry["gsx$image"]["$t"];
+            let text = entry["gsx$text"]["$t"];
 
-        if (submission.type === "image") {
-            const img = document.createElement("img");
-            img.src = submission.src;
-            item.appendChild(img);
-        } else {
-            item.textContent = submission.content;
-        }
+            let item = document.createElement("div");
+            item.classList.add("item");
 
-        gallery.appendChild(item);
-    });
-});
+            if (imageUrl) {
+                let img = document.createElement("img");
+                img.src = imageUrl;
+                item.appendChild(img);
+            } else if (text) {
+                item.innerText = text;
+            }
+
+            collage.appendChild(item);
+        });
+    } catch (error) {
+        console.error("Error fetching submissions:", error);
+    }
+}
+
+fetchSubmissions();
+setInterval(fetchSubmissions, 10000);
