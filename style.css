@@ -1,3 +1,4 @@
+/* Global reset and body styling */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -5,6 +6,7 @@ body {
   color: white;
 }
 
+/* Collage grid styling */
 #collage {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(510px, 1fr));
@@ -15,17 +17,26 @@ body {
   scroll-behavior: smooth;
 }
 
-.collage div {
+/* Individual submission styling */
+.submission {
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 10px;
   padding: 10px;
   text-align: center;
 }
 
-.collage img {
+.submission img {
   max-height: 510px;
   width: auto;
   border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+}
+
+.submission p {
+  font-size: 16px;
+  margin: 10px 0;
+  text-align: center;
 }
 
 html, body {
