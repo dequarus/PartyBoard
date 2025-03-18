@@ -1,63 +1,47 @@
-const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbz8eoEFxQlwSjXu4RDww8XEXPrb7dr3EtstrJy-gVoiFp6s3lgvzJZ-bbonekFYHIo/exec"; // Replace with actual sheet URL
+const SHEET_URL = "YOUR_GOOGLE_SHEETS_JSON_URL"; // Replace with your Sheets JSON URL
+const gallery = document.getElementById("gallery");
+const columns = [[], [], [], []]; // Four columns
 
-let currentPositionY = 0; // Track vertical position for new entries
-
-async function fetchData() {
+// Fetch submissions and update the board
+async function fetchSubmissions() {
     try {
-        const response = await fetch(SHEET_API_URL);
+        const response = await fetch(SHEET_URL);
         const data = await response.json();
+        const entries = data.values.slice(1); // Skip header row
 
-        // Check the fetched data
-        console.log("Fetched Data:", data);
+        // Clear columns before reloading data
+        columns.forEach(col => col.length = 0);
+        gallery.innerHTML = ""; 
 
-        if (!data || data.length === 0) {
-            console.log("No data found.");
-            return;
-        }
+        entries.forEach((entry, index) => {
+            const imgUrl = entry[3] || entry[4]; // Image URLs from columns D or E
+            const text = entry[5]; // Text submission from column F
 
-        // Add new entries from the data
-        data.forEach(item => {
-            createEntry(item.image1 || item.image2, item.text);
+            // Alternate placing between the four columns
+            const columnIndex = index % 4;
+            const column = columns[columnIndex];
+
+            if (imgUrl) {
+                column.push(`<div><img src="${imgUrl}" loading="lazy"></div>`);
+            } 
+            if (text) {
+                column.push(`<div class="text-box">${text}</div>`);
+            }
         });
+
+        // Render all columns dynamically
+        columns.forEach((colEntries, i) => {
+            const columnDiv = document.createElement("div");
+            columnDiv.classList.add("column");
+            columnDiv.innerHTML = colEntries.join(""); 
+            gallery.appendChild(columnDiv);
+        });
+
     } catch (error) {
         console.error("Error fetching data:", error);
     }
 }
 
-function createEntry(imageUrl, text) {
-    const board = document.getElementById("board");
-
-    if (!imageUrl && !text) {
-        console.log("No image or text provided, skipping entry.");
-        return;
-    }
-
-    const entry = document.createElement("div");
-    entry.classList.add("entry");
-
-    // Create image element if image URL is provided
-    if (imageUrl) {
-        const img = document.createElement("img");
-        img.src = imageUrl;
-        entry.appendChild(img);
-    }
-
-    // Create text element if text is provided
-    if (text) {
-        const textBox = document.createElement("div");
-        textBox.classList.add("text-box");
-        const p = document.createElement("p");
-        p.textContent = text;
-        textBox.appendChild(p);
-        entry.appendChild(textBox);
-    }
-
-    // Add the entry to the board
-    board.appendChild(entry);
-}
-
-// Fetch data on page load
-fetchData();
-
-// Set up regular refresh every 5 seconds
-setInterval(fetchData, 5000);
+// Fetch data initially and refresh every 30 seconds for new entries
+fetchSubmissions();
+setInterval(fetchSubmissions, 30000);
