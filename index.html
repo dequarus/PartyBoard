@@ -25,5 +25,45 @@
             <p>This is some text for the fourth image.</p>
         </div>
     </div>
+    <script>
+    // URL of your Google Apps Script deployment
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbzpFiPEuwJ3wW0U5hQtGcpgP3yPsAHcIOYNklDfe56_e9SBaXZxhtQ6De8IDOWAO-LEjQ/exec";
+    
+    // Function to fetch data and populate the grid
+    async function fetchData() {
+        try {
+            const response = await fetch(scriptUrl);
+            const data = await response.json();  // Parse the JSON response
+            
+            const gridContainer = document.querySelector(".grid-container");
+            
+            // Loop through each submission from the Google Sheet
+            data.forEach(item => {
+                // Create a new grid item for each submission
+                const gridItem = document.createElement("div");
+                gridItem.classList.add("grid-item");
+
+                // Add image 1
+                const image1 = document.createElement("img");
+                image1.src = item.image1;
+                gridItem.appendChild(image1);
+
+                // Add text
+                const textBox = document.createElement("p");
+                textBox.textContent = item.text;
+                gridItem.appendChild(textBox);
+
+                // Append the new grid item to the grid container
+                gridContainer.appendChild(gridItem);
+            });
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+    // Fetch data when the page loads
+    window.onload = fetchData;
+</script>
+
 </body>
 </html>
