@@ -1,62 +1,38 @@
-/* Basic body styling */
+/* Basic styling */
 body {
     margin: 0;
-    padding: 0;
     font-family: Arial, sans-serif;
     background-color: black;
 }
 
-/* Container to hold the collage */
-.container {
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-}
-
-/* Collage styles: Flexbox for horizontal scrolling */
-.collage {
-    display: flex;
-    flex-wrap: nowrap;
+/* Container for the collage */
+#collage {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(510px, 1fr));
     gap: 20px;
-    animation: scrollLeft 20s linear infinite;
-}
-
-/* Individual items: text or images inside the collage */
-.item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 20px;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
-    border-radius: 10px;
-    min-width: 510px;
-    height: 510px;
+    max-width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
 }
 
-/* Image styles */
-.item img {
-    height: 510px;
+/* Styling for each submission (image or text) */
+.collage div {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.collage img {
+    max-height: 510px;
     width: auto;
     border-radius: 10px;
 }
 
-/* Animation to scroll the grid to the left */
-.keyframes scrollLeft {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-100%);
-    }
-}
-
-/* Responsiveness for smaller screens */
-.media screen and (max-width: 800px) {
-    .item {
-        min-width: 100%;
-        height: 250px;
-    }
+/* Ensure no horizontal overflow */
+html, body {
+    overflow-x: hidden;
 }
