@@ -7,53 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <h1>Party Board</h1>
-
-    <div class="grid-container" id="grid-container">
-        <!-- Images and text will be dynamically added here -->
-    </div>
-
-    <script>
-        // Google Apps Script Deployment URL
-        const scriptUrl = "https://script.google.com/macros/s/AKfycbzpFiPEuwJ3wW0U5hQtGcpgP3yPsAHcIOYNklDfe56_e9SBaXZxhtQ6De8IDOWAO-LEjQ/exec";
-
-        async function fetchData() {
-            try {
-                const response = await fetch(scriptUrl);
-                const data = await response.json();  
-
-                const gridContainer = document.getElementById("grid-container");
-                gridContainer.innerHTML = ""; // Clear grid before updating
-
-                data.forEach(item => {
-                    const gridItem = document.createElement("div");
-                    gridItem.classList.add("grid-item");
-
-                    if (item.image1) {
-                        const image1 = document.createElement("img");
-                        image1.src = item.image1;
-                        image1.alt = "Submission Image";
-                        gridItem.appendChild(image1);
-                    }
-
-                    if (item.text) {
-                        const textBox = document.createElement("p");
-                        textBox.textContent = item.text;
-                        gridItem.appendChild(textBox);
-                    }
-
-                    gridContainer.appendChild(gridItem);
-                });
-
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        }
-
-        // Fetch data when the page loads
-        window.onload = fetchData;
-    </script>
-
+    <div id="board" class="container"></div>
+    <script src="script.js"></script>
 </body>
 </html>
