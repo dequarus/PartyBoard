@@ -1,4 +1,3 @@
-/* General body and text styling */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -6,45 +5,53 @@ body {
   background-color: #f4f4f4;
 }
 
-/* Container for all the submissions */
 #collage {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* responsive grid */
-  gap: 20px; /* gap between grid items */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   padding: 20px;
-  justify-items: center;
-  align-items: start;
+  gap: 20px;
 }
 
-/* Individual submission styling */
 .submission {
+  width: 510px; /* Set the fixed width for images and text box */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  width: 100%;
-  max-width: 500px;
+  overflow: hidden;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Styling for images inside submissions */
 .collage-img {
-  width: 100%;  /* Make images responsive */
-  height: auto; /* Maintain aspect ratio */
-  max-height: 510px; /* Scale to 510px height */
-  object-fit: contain; /* Scale image to fit the container */
-  border-radius: 8px;
-  margin-bottom: 10px;
+  width: 100%;
+  height: 510px; /* Ensures images are scaled to 510px in height */
+  object-fit: contain; /* Ensures the images maintain their proportions */
 }
 
-/* Styling for text boxes */
 .text-box {
-  font-size: 16px;
+  width: 100%;
+  max-width: 510px;
   padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
   text-align: center;
-  word-wrap: break-word;  /* Ensure text wraps inside the box */
-  max-width: 510px; /* Text box should match image size */
-  margin-top: 10px;
+  box-sizing: border-box;
+  word-wrap: break-word; /* Ensures text wraps correctly */
+  background-color: #f9f9f9;
+}
+
+@media screen and (max-width: 800px) {
+  .submission {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .submission {
+    width: 100%;
+    max-width: 100%;
+  }
 }
