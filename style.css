@@ -1,58 +1,57 @@
-/* General Body Styling */
 body {
-  margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #111;
-  color: white;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
 }
 
-/* Collage Grid Layout */
 #collage {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(510px, 1fr)); /* Ensures each entry fits in a grid cell */
-  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   padding: 20px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+  gap: 20px;
 }
 
-/* Individual Submission Styling */
 .submission {
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
+  width: 510px; /* Set the fixed width for images and text box */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
-
-/* Image Styling */
-.submission img {
-  max-height: 510px;
-  width: auto;
-  border-radius: 10px;
-  display: block;
-  margin: 10px auto;
-}
-
-/* Text Box Styling */
-.text-box {
-  max-width: 510px;
-  margin-top: 10px;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.8);
+  align-items: center;
+  background-color: white;
   border-radius: 8px;
-  word-wrap: break-word;  /* Ensures text wraps */
-  text-align: center;
-  font-size: 14px;
-  color: white;
+  overflow: hidden;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive Layouts */
+.collage-img {
+  width: 100%;
+  height: 510px; /* Ensures images are scaled to 510px in height */
+  object-fit: contain; /* Ensures the images maintain their proportions */
+}
+
+.text-box {
+  width: 100%;
+  max-width: 510px;
+  padding: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  box-sizing: border-box;
+  word-wrap: break-word; /* Ensures text wraps correctly */
+  background-color: #f9f9f9;
+}
+
 @media screen and (max-width: 800px) {
-  #collage {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Make smaller columns on mobile */
+  .submission {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .submission {
+    width: 100%;
+    max-width: 100%;
   }
 }
