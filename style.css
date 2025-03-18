@@ -1,18 +1,18 @@
-/* Reset margins and padding */
+/* Reset default margin and padding */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body style */
+/* Body styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #f4f4f4;
     padding: 20px;
 }
 
-/* Grid container */
+/* Grid container styling */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -21,13 +21,13 @@ body {
     margin: 0 auto;
 }
 
-/* Grid item (each box) */
+/* Grid item styling */
 .grid-item {
     background-color: white;
     padding: 20px;
     border: 1px solid #ddd;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Image styling */
@@ -38,7 +38,7 @@ body {
     object-fit: cover;
 }
 
-/* Text box */
+/* Text inside the box */
 .grid-item p {
     margin-top: 10px;
     font-size: 14px;
