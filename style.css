@@ -3,59 +3,44 @@ body {
     padding: 0;
     background-color: #f0f0f0;
     font-family: Arial, sans-serif;
+    overflow-x: hidden; /* No horizontal scrolling */
 }
 
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 4px;
-    justify-content: center; /* Center the gallery */
+.gallery-container {
+    width: 1920px; /* Fixed width */
+    position: relative;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-/* Column layout */
-.column {
-    flex: 25%;
-    max-width: 25%;
-    padding: 0 4px;
-}
-
-.column div {
-    margin-top: 8px;
-    vertical-align: middle;
+#gallery {
+    position: relative;
     width: 100%;
+    min-height: 1080px;
+}
+
+.item {
+    position: absolute;
     background: white;
     padding: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Image styling */
-.column img {
-    width: 100%;
-    height: auto;
+img {
+    height: 510px;
+    width: auto;
+    display: block;
 }
 
-/* Text box styling */
 .text-box {
-    width: 100%;
-    padding: 15px;
-    background: #fff;
+    width: 510px;
+    background: white;
     text-align: center;
     word-wrap: break-word;
     border: 1px solid #ddd;
     font-size: 16px;
-}
-
-/* Responsive layout */
-@media screen and (max-width: 800px) {
-    .column {
-        flex: 50%;
-        max-width: 50%;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .column {
-        flex: 100%;
-        max-width: 100%;
-    }
+    padding: 15px;
 }
